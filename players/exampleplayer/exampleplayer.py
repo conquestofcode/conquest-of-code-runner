@@ -1,53 +1,45 @@
 import player
 from robot import Robot
-import direction
-import robotTypes
 import random
+from common import *
 
 class Player(player.Player):
-    def __init__(self, robot: Robot, rng: random.Random):
-        self.robot = robot
+    """Example player that moves, collects, and attacks randomly."""
+
+    def __init__(self, rc: Robot, rng: random.Random):
+        self.rc = rc
         self.turnCount = 0
         self.rng = rng
-        self.DIRECTIONS = [
-            direction.NORTHWEST,
-            direction.NORTH,
-            direction.NORTHEAST,
-            direction.WEST,
-            direction.EAST,
-            direction.SOUTHWEST,
-            direction.SOUTH,
-            direction.SOUTHEAST
-        ]
+        self.DIRECTIONS = Direction.allDirections()
 
     def update(self):
-        rc = self.robot
-        if rc.getType() == robotTypes.CASTLE:
+        rc = self.rc
+        if rc.getType() == RobotType.CASTLE:
             self.runCastle(rc) 
-        if rc.getType() == robotTypes.KNIGHT:
+        if rc.getType() == RobotType.KNIGHT:
             self.runKnight(rc) 
-        if rc.getType() == robotTypes.VILLAGE:
+        if rc.getType() == RobotType.VILLAGE:
             self.runVillage(rc)
-        if rc.getType() == robotTypes.VILLAGER:
+        if rc.getType() == RobotType.VILLAGER:
             self.runVillager(rc)
-        if rc.getType() == robotTypes.SIEGEFOUNDRY:
+        if rc.getType() == RobotType.SIEGEFOUNDRY:
             self.runSiegeFoundry(rc)
-        if rc.getType() == robotTypes.CATAPULT:
+        if rc.getType() == RobotType.CATAPULT:
             self.runCatapult(rc)
-        if rc.getType() == robotTypes.TREBUCHET:
+        if rc.getType() == RobotType.TREBUCHET:
             self.runTrebuchet(rc) 
     
     def runCastle(self, rc:Robot):
         target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-        if rc.canTrain(robotTypes.KNIGHT, target):
-            rc.train(robotTypes.KNIGHT, target)
+        if rc.canTrain(RobotType.KNIGHT, target):
+            rc.train(RobotType.KNIGHT, target)
     
     def runSiegeFoundry(self, rc:Robot):
         target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-        if rc.canTrain(robotTypes.TREBUCHET, target):
-            rc.train(robotTypes.TREBUCHET, target)
-        elif rc.canTrain(robotTypes.CATAPULT, target):
-            rc.train(robotTypes.CATAPULT, target)
+        if rc.canTrain(RobotType.TREBUCHET, target):
+            rc.train(RobotType.TREBUCHET, target)
+        elif rc.canTrain(RobotType.CATAPULT, target):
+            rc.train(RobotType.CATAPULT, target)
 
     def runKnight(self, rc:Robot):
         robots = list(filter(lambda robot: robot.getTeam() != rc.getTeam(), rc.senseNearbyRobots(rc.getType().ACTION_RANGE)))
@@ -56,8 +48,8 @@ class Player(player.Player):
             if rc.canAttack(robot.getLocation()):
                 rc.attack(robot.getLocation())
         target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-        if rc.canMove(target):
-            rc.move(target)
+        if rc.canMove(target=target):
+            rc.move(target=target)
     
     def runCatapult(self, rc:Robot):
         robots = list(filter(lambda robot: robot.getTeam() != rc.getTeam(), rc.senseNearbyRobots(rc.getType().ACTION_RANGE)))
@@ -67,8 +59,8 @@ class Player(player.Player):
                 rc.attack(robot.getLocation())
         else:
             target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-            if rc.canMove(target):
-                rc.move(target)
+            if rc.canMove(target=target):
+                rc.move(target=target)
     
     def runTrebuchet(self, rc:Robot):
         robots = list(filter(lambda robot: robot.getTeam() != rc.getTeam(), rc.senseNearbyRobots(rc.getType().ACTION_RANGE)))
@@ -78,17 +70,17 @@ class Player(player.Player):
                 rc.attack(robot.getLocation())
         else:
             target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-            if rc.canMove(target):
-                rc.move(target)
+            if rc.canMove(target=target):
+                rc.move(target=target)
 
     def runVillage(self, rc:Robot):
         target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-        if rc.canTrain(robotTypes.VILLAGER, target):
-            rc.train(robotTypes.VILLAGER, target)
+        if rc.canTrain(RobotType.VILLAGER, target):
+            rc.train(RobotType.VILLAGER, target)
 
     def runVillager(self, rc:Robot):
         target = rc.getLocation().add(self.rng.choice(self.DIRECTIONS))
-        if rc.canMove(target):
-            rc.move(target)
+        if rc.canMove(target=target):
+            rc.move(target=target)
         if rc.canCollect(rc.getLocation()):
             rc.collect(rc.getLocation())
