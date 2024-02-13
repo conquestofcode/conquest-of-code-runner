@@ -16,17 +16,17 @@ class Player(player.Player):
         rc = self.rc
         if rc.getType() == RobotType.CASTLE:
             self.runCastle(rc) 
-        if rc.getType() == RobotType.KNIGHT:
+        elif rc.getType() == RobotType.KNIGHT:
             self.runKnight(rc) 
-        if rc.getType() == RobotType.VILLAGE:
+        elif rc.getType() == RobotType.VILLAGE:
             self.runVillage(rc)
-        if rc.getType() == RobotType.VILLAGER:
+        elif rc.getType() == RobotType.VILLAGER:
             self.runVillager(rc)
-        if rc.getType() == RobotType.SIEGEFOUNDRY:
+        elif rc.getType() == RobotType.SIEGEFOUNDRY:
             self.runSiegeFoundry(rc)
-        if rc.getType() == RobotType.CATAPULT:
+        elif rc.getType() == RobotType.CATAPULT:
             self.runCatapult(rc)
-        if rc.getType() == RobotType.TREBUCHET:
+        elif rc.getType() == RobotType.TREBUCHET:
             self.runTrebuchet(rc) 
     
     def runCastle(self, rc:Robot):
