@@ -1,7 +1,7 @@
-import player
-from robot import Robot
-from random import Random
-from common import *
+import player  # type: ignore
+from robot import Robot  # type: ignore
+from random import Random  # type: ignore
+from common import *  # type: ignore
 
 
 class Player(player.Player):
