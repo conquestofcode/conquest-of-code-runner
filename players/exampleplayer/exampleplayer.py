@@ -1,7 +1,9 @@
+from mapLocation import MapLocation  # type: ignore
 import player  # type: ignore
 from robot import Robot  # type: ignore
 from random import Random  # type: ignore
-from common import *  # type: ignore
+from direction import Direction  # type: ignore
+from robotTypes import RobotType  # type: ignore
 
 
 class Player(player.Player):
