@@ -1,7 +1,7 @@
 # Formal Specification
 
 **Welcome to Conquest of Code: Season 1.**
-This is an overview of this season. We recommend that you read through this whole document before writing bots.<br>
+This is an overview of this season. We recommend that you read through this whole document before writing bots. Please join our discord server for more info, to ask questions abot the game, and to communicate with your fellow competitors: https://discord.gg/bqWrhP9C96. <br>
 _This document and the game it describes may be tweaked as the season progresses. We will try to keep changes to a minimum, but we may have to make balancing changes._
 
 # Objective
