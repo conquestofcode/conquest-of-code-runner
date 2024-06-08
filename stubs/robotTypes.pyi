@@ -15,6 +15,7 @@ class RobotType(Enum):
     ELITEARCHER: RobotType
     MASTERARCHER: RobotType
     CATAPULT: RobotType
+    BALLISTA: RobotType
     TREBUCHET: RobotType
     VILLAGE: RobotType
     VILLAGER: RobotType
