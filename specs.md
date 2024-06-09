@@ -107,8 +107,8 @@ A foundation runs your player's code, however cannot perform most actions until 
 
 A player is out if they:
 
--   Go 100 rounds without having any Robots
--   Have no Robots or Buildings (not counting Foundations) for 1 round
+- Go 100 rounds without having any Robots
+- Have no Robots or Buildings (not counting Foundations) for 1 round
 
 The game is over when there are one or less players remaining in the game (not out). All players are then ranked based on the round they went out, with the latest being better. (The player who survived the longest is first, second longest is second, etc.)
 
@@ -124,77 +124,83 @@ Units are assigned a random id between 10,000 and 19,999 (inclusive).
 
 Below is a general overview of all units. More detailed statistics can be found later.
 
--   Castle
-    -   Trains Knights
-    -   Tiny attack in a short range
--   Knight
-    -   Basic offensive unit
-    -   Medium attack
-    -   Simple
-    -   Boring
-    -   Attacks every turn
--   Elite Knight
-    -   Knight but better
-    -   Twice as much health
-    -   Large attack
-    -   Slightly more advanced
-    -   Slightly less boring
-    -   Attacks every turn and sometimes attacks
-        more
--   Master Knight
-    -   Elite Knight but even better
-    -   Twice as much health
-    -   Giant attack (takes out Knights in two hits)
-    -   Very advanced
-    -   Cool
-    -   Attacks twice every turn
-    -   Longer reach
--   Village
-    -   Makes Villagers
-    -   Cannot attack
-    -   Defenseless
-    -   You always start with at least one
--   Villager
-    -   Collects resources
-    -   Keep up the economy
-    -   Vital for survival
-    -   Miniscule attack
-    -   Not quite defenseless
--   Archery Range
-    -   Makes Archers
-    -   Contains targets
-    -   Cannot attack
-    -   Not defenseless because it can make defense
--   Archer
-    -   Small, long range attack
-    -   Attacks twice every turn
-    -   Moves twice every turn
--   Siege Foundry
-    -   Makes weapons of war
-    -   Cannot attack
-    -   Cool
--   Catapult
-    -   Devestating attack with a long range
-    -   Makes a big boom
-    -   Can't see very far
-    -   Slow
-    -   Tiny health
--   Trebuchet
-    -   Supreme to a Catapult
-    -   Expensive
-    -   Even more devestating attack with an even longer range
-    -   Makes an even bigger boom
-    -   Can see further but still not that far
-    -   Moves slower but attacks quicker
--   Watchtower
-    -   Trains spies
-    -   Large vision range to watch stuff
--   Spy
-    -   Can disguise itself
-    -   No attack
-    -   Fast
-    -   Extremely tiny health
-    -   Would lose in direct combat against one villager if it didn't run away
+- Castle
+  - Trains Knights
+  - Tiny attack in a short range
+- Knight
+  - Basic offensive unit
+  - Medium attack
+  - Simple
+  - Boring
+  - Attacks every turn
+- Elite Knight
+  - Knight but better
+  - Twice as much health
+  - Large attack
+  - Slightly more advanced
+  - Slightly less boring
+  - Attacks every turn and sometimes attacks
+    more
+- Master Knight
+  - Elite Knight but even better
+  - Twice as much health
+  - Giant attack (takes out Knights in two hits)
+  - Very advanced
+  - Cool
+  - Attacks twice every turn
+  - Longer reach
+- Village
+  - Makes Villagers
+  - Cannot attack
+  - Defenseless
+  - You always start with at least one
+- Villager
+  - Collects resources
+  - Keep up the economy
+  - Vital for survival
+  - Miniscule attack
+  - Not quite defenseless
+- Archery Range
+  - Makes Archers
+  - Contains targets
+  - Cannot attack
+  - Not defenseless because it can make defense
+- Archer
+  - Small, long range attack
+  - Attacks twice every turn
+  - Moves twice every turn
+- Siege Foundry
+  - Makes weapons of war
+  - Cannot attack
+  - Cool
+- Catapult
+  - Devestating attack with a long range
+  - Makes a big boom
+  - Can't see very far
+  - Slow
+- Ballista
+  - great attack at large distances
+  - shoots a cool spear thing
+  - absolutely awesome
+  - Slow
+  - Tiny health
+  - Big action cooldown
+- Trebuchet
+  - Supreme to a Catapult
+  - Expensive
+  - Even more devestating attack with an even longer range
+  - Makes an even bigger boom
+  - Can see further but still not that far
+  - Moves slower but attacks quicker
+- Watchtower
+  - Trains spies
+  - Large vision range to watch stuff
+- Spy
+  - Can disguise itself
+  - No attack
+  - Fast
+  - Extremely tiny health
+  - Would lose in direct combat against one villager if it didn't run away
 
 # Communication
 
@@ -206,9 +212,9 @@ All nearby units can read the robot's comms.
 
 A unit has 3 different cooldowns - **Action**, **Movement**, and **Special**.
 
--   **Movement cooldown** is associated with the **Move** action.
--   **Action cooldown** is associated with the **Attack**, **Train**, **Collect**, **Transfer**, **Build** actions.
--   **Special cooldown** is associated with the **Disguise** action.
+- **Movement cooldown** is associated with the **Move** action.
+- **Action cooldown** is associated with the **Attack**, **Train**, **Collect**, **Transfer**, **Build** actions.
+- **Special cooldown** is associated with the **Disguise** action.
 
 To perform most actions, a robot's action cooldown has to be less than 10. At the end of a a turn, all robots' cooldowns decrease by 10, to a minimum of 0.
 
@@ -222,15 +228,15 @@ Et cetera.
 
 Each turn units can:
 
--   **Move** (`canMove`/`move`): A unit that can move can move itself to an empty, adjacent (including diagonally) square if their movement cooldown is less than 10. This increases their movement cooldown according to their type.
--   **Attack** (`canAttack`/`attack`): A unit that can attack can attack a square within their action range if their action cooldown is less than 10. This deals damage equal to their attack value to the unit on that square, if such a unit exists. This increases their action cooldown according to their type. Note that there is friendly fire, meaning that units can attack and deal damage to other units on their team. A unit can attack a square even if it has no unit on it. Foundations may not be attacked.
--   **Train** (`canTrain`/`train`): A unit can train a unit their type is able to train to an empty, adjacent (including diagonally) square if their action cooldown is less than 10 and they have sufficient resources. This increases their action cooldown according to their type.
--   **Upgrade** (`canUpgrade`/`upgrade`): A unit can get an upgrade if they have sufficient resources.
--   **Collect** (`canCollect`/`collect`): A unit that can collect can collect from an adjacent (including diagonally) square if their action cooldown is less than 10. This increases their action cooldown according to their type.
--   **Transfer** (`canTransfer`/`transfer`): A unit can transfer resources to an adjacent (including diagonally) unit if their action cooldown is less than 10. This increases their action cooldown according to their type.
--   **Build** (`canBuild`/`build`): A unit can build to a square containing either no foundation or a foundation on their team if their action cooldown is less than 10. This increases their action cooldown according to their type.
--   **Assemble** (`canAssemble`/`assembly`): An unbuilt unit can assemble itself if it has enough resources.
--   **Disguise** (`canDisguise`/`disguise`): Spies may disguise their RobotType, Team, resources, build status, and hp. This does not change their actual stats, but they will appear as the new unit when sensed by any unit.
+- **Move** (`canMove`/`move`): A unit that can move can move itself to an empty, adjacent (including diagonally) square if their movement cooldown is less than 10. This increases their movement cooldown according to their type.
+- **Attack** (`canAttack`/`attack`): A unit that can attack can attack a square within their action range if their action cooldown is less than 10. This deals damage equal to their attack value to the unit on that square, if such a unit exists. This increases their action cooldown according to their type. Note that there is friendly fire, meaning that units can attack and deal damage to other units on their team. A unit can attack a square even if it has no unit on it. Foundations may not be attacked.
+- **Train** (`canTrain`/`train`): A unit can train a unit their type is able to train to an empty, adjacent (including diagonally) square if their action cooldown is less than 10 and they have sufficient resources. This increases their action cooldown according to their type.
+- **Upgrade** (`canUpgrade`/`upgrade`): A unit can get an upgrade if they have sufficient resources.
+- **Collect** (`canCollect`/`collect`): A unit that can collect can collect from an adjacent (including diagonally) square if their action cooldown is less than 10. This increases their action cooldown according to their type.
+- **Transfer** (`canTransfer`/`transfer`): A unit can transfer resources to an adjacent (including diagonally) unit if their action cooldown is less than 10. This increases their action cooldown according to their type.
+- **Build** (`canBuild`/`build`): A unit can build to a square containing either no foundation or a foundation on their team if their action cooldown is less than 10. This increases their action cooldown according to their type.
+- **Assemble** (`canAssemble`/`assembly`): An unbuilt unit can assemble itself if it has enough resources.
+- **Disguise** (`canDisguise`/`disguise`): Spies may disguise their RobotType, Team, resources, build status, and hp. This does not change their actual stats, but they will appear as the new unit when sensed by any unit.
 
 **At the end of each turn, each unit's action, movement, and special cooldowns decrease by 10, to a minimum of 0.**
 
@@ -248,13 +254,13 @@ When making your bot, there are a few things to keep in mind.
 
 To ensure gameplay is fair some modules are banned.
 
--   Using the random module (other than for [type hinting](https://docs.python.org/3/library/typing.html)) is banned to ensure matches are the same every time. A seeded rng is passed to your robots’ `__init__` function for random use.
--   The os and sys modules are banned to ensure that the game can carry out until a winner is declared.
--   Pygame and other graphics modules are banned to ensure that the game has only one window that displays the true content of the game.
--   Communication between robots (ex. writing to files) other then using the comms functionality is banned. **Note that your player is reimported for each robot, so module variables will not be shared.**
--   Using modules such as `traceback` to read the print history is banned.
--   Changing any game classes or files, or attributes of the same (ex `robot.Robot`, `robot.py`, `resourceTypes.RESOURCE_TYPES`) is banned.
--   **Catching game exceptions such as `OutOfBytecodeException` and `DisintegrateException` is banned (GameActionException can be caught)**
+- Using the random module (other than for [type hinting](https://docs.python.org/3/library/typing.html)) is banned to ensure matches are the same every time. A seeded rng is passed to your robots’ `__init__` function for random use.
+- The os and sys modules are banned to ensure that the game can carry out until a winner is declared.
+- Pygame and other graphics modules are banned to ensure that the game has only one window that displays the true content of the game.
+- Communication between robots (ex. writing to files) other then using the comms functionality is banned. **Note that your player is reimported for each robot, so module variables will not be shared.**
+- Using modules such as `traceback` to read the print history is banned.
+- Changing any game classes or files, or attributes of the same (ex `robot.Robot`, `robot.py`, `resourceTypes.RESOURCE_TYPES`) is banned.
+- **Catching game exceptions such as `OutOfBytecodeException` and `DisintegrateException` is banned (GameActionException can be caught)**
 
 ## Fair Gameplay
 
@@ -302,7 +308,7 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 125 Metal<br>
-**Health**: 125<br>
+**Health**: 200<br>
 **Attack**: 25<br>
 **Action Range**: 1<br>
 **Vision Range**: 3<br>
@@ -314,7 +320,7 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 150 Metal, 100 Gold<br>
-**Health**: 250<br>
+**Health**: 350<br>
 **Attack**: 40<br>
 **Action Range**: 1<br>
 **Vision Range**: 4<br>
@@ -374,11 +380,11 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 100 Wood, 25 Metal<br>
-**Health**: 110<br>
+**Health**: 100<br>
 **Attack**: 10<br>
 **Action Range**: 5<br>
 **Vision Range**: 7<br>
-**Movement Cooldown**: 5<br>
+**Movement Cooldown**: 9<br>
 **Action Cooldown**: 5<br>
 **Trained From**: Archery Range
 
@@ -386,11 +392,11 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 110 Wood, 40 Metal, 100 Gold<br>
-**Health**: 225<br>
+**Health**: 200<br>
 **Attack**: 15<br>
 **Action Range**: 7<br>
 **Vision Range**: 10<br>
-**Movement Cooldown**: 3<br>
+**Movement Cooldown**: 7<br>
 **Action Cooldown**: 3<br>
 **Trained From**: Archery Range
 
@@ -398,11 +404,11 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 160 Wood, 90 Metal, 250 Gold<br>
-**Health**: 450<br>
+**Health**: 320<br>
 **Attack**: 25<br>
 **Action Range**: 10<br>
 **Vision Range**: 15<br>
-**Movement Cooldown**: 2<br>
+**Movement Cooldown**: 5<br>
 **Action Cooldown**: 2<br>
 **Trained From**: Archery Range
 
@@ -421,7 +427,7 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 
 **Type**: Robot<br>
 **Cost**: 100 Stone, 100 Wood, 25 Metal<br>
-**Health**: 20<br>
+**Health**: 200<br>
 **Attack**: 500<br>
 **Action Range**: 10<br>
 **Vision Range**: 1<br>
@@ -429,11 +435,23 @@ The general group of Buildings includes Castles, Villages, and such. Buildings c
 **Action Cooldown**: 40<br>
 **Trained From**: Siege Foundry
 
+## Ballista
+
+**Type**: Robot<br>
+**Cost**: 175 Wood, 120 Metal<br>
+**Health**: 75<br>
+**Attack**: 300<br>
+**Action Range**: 10<br>
+**Vision Range**: 8<br>
+**Movement Cooldown**: 20<br>
+**Action Cooldown**: 80<br>
+**Trained From**: Siege Foundry
+
 ## Trebuchet
 
 **Type**: Robot<br>
 **Cost**: 500 Stone, 300 Wood, 100 Metal<br>
-**Health**: 30<br>
+**Health**: 235<br>
 **Attack**: 1500<br>
 **Action Range**: 15<br>
 **Vision Range**: 2<br>
@@ -506,9 +524,9 @@ In the top left corner, you can view information such as the **version**, **TPS*
 
 In the middle left, you can view game stats.<br>
 
--   **Units**: The totals and ratios of each teams' robot count (not including foundations).
--   **Total Health**: The ratios of the sums of each teams' robots' health (not including foundations).
--   **Resources**: The totals and ratios of all resources carried by each teams' robots (not including foundations).
+- **Units**: The totals and ratios of each teams' robot count (not including foundations).
+- **Total Health**: The ratios of the sums of each teams' robots' health (not including foundations).
+- **Resources**: The totals and ratios of all resources carried by each teams' robots (not including foundations).
 
 In the bottom left, you can view specific stats for a unit or source once you select it.
 
