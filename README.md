@@ -1,1 +1,2 @@
 NOTE: You may need to create a folder called "matches" for certain features to work.
+NOTE: The linux exe in this repo is not up-to-date; for an up to date linux executable is available at https://filebin.net/z27rr3q1887iebew.
